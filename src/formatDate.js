@@ -9,7 +9,8 @@
  */
 function formatDate(date, fromFormat, toFormat) {
   // write code here
-  const oldSeparator = fromFormat.pop();
+  const fromFormatCopy = [...fromFormat];
+  const oldSeparator = fromFormatCopy.pop();
   const parts = date.split(oldSeparator);
   const dateMap = {};
 
@@ -31,9 +32,12 @@ function formatDate(date, fromFormat, toFormat) {
     dateMap['YY'] = dateMap['YYYY'].slice(-2);
   }
 
-  const newSeparator = toFormat.pop();
+  const toFormatCopy = [...toFormat];
+  const newSeparator = toFormatCopy.pop();
 
-  const newDate = toFormat.map((part) => dateMap[part]).join(newSeparator);
+  const newDate = toFormatCopy
+    .map((part) => dateMap[part] || '')
+    .join(newSeparator);
 
   return newDate;
 }
